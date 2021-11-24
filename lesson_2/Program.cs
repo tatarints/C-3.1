@@ -1,45 +1,87 @@
-﻿namespace lesson_2
+﻿using System;
+using System.Collections.Generic;
+
+namespace lesson_2
 {
     class Program
     {
         static void Main(string[] args)
         {
-            Bank bank = new Bank();
+            BankAccount account1 = new BankAccount(210901);
+            BankAccount account2 = new BankAccount(TypeOfBankAccount.CREDIT);
+            BankAccount account3 = new BankAccount(250102, TypeOfBankAccount.DEPOSIT);
 
-            Console.WriteLine("Введите тип банковского счёта: ");
-            bank.TypeAccount = Console.ReadLine();
-            
-            Bank bank1 = new Bank(1);
-
-            Console.WriteLine("Номер счёта " + bank.AccountNumber +
-                    ", тип банковского счёта: " + bank.TypeAccount +
-                    ", баланс: " + bank1.Balance + ".");
-            Console.ReadKey();
+            account1.InfoBankAccount();
+            account2.InfoBankAccount();
+            account3.InfoBankAccount();
         }
     }
-
-    public class Bank
+    public enum TypeOfBankAccount
     {
-        public int AccountNumber { get; set; }
-        public int Balance { get; set; }
-        public string TypeAccount { get; set; }
+        DEBIT,
+        CREDIT,
+        DEPOSIT,
+        BUDGET
+    }
+    public class BankAccount
+    {
+        int _number;
 
+        int _balance;
 
-        public Bank()
+        TypeOfBankAccount _typeAccount;
+
+        public BankAccount()
         {
-            Console.WriteLine("Номер счета: ");
+            _number = RND();
+        }
+
+        public BankAccount(int balance)
+        {
+            _balance = balance;
+            _number = RND();
+
+        }
+        public BankAccount(TypeOfBankAccount typeAccount)
+        {
+            _typeAccount = typeAccount;
+            _number = RND();
+
+        }
+
+        public BankAccount(int balance, TypeOfBankAccount typeAccount)
+        {
+            _balance = balance;
+            _typeAccount = typeAccount;
+            _number = RND();
+
+        }
+
+        int RND()
+        {
             Random rnd = new Random();
-            AccountNumber = rnd.Next(1000000000, int.MaxValue);
-            Console.WriteLine(AccountNumber);
+            _number = rnd.Next(1000000000, int.MaxValue);
+            return _number;
         }
-        public Bank(int balance)
+       
+        public int InfoNumber()
         {
-            Console.WriteLine("Введите количество денег на счету: ");
-            Balance = int.Parse(Console.ReadLine());
+            return _number;
         }
-        public Bank(string typeaccount)
-        {
 
+        public int InfoBalance()
+        {
+            return _balance;
+        }
+
+        public TypeOfBankAccount InfoTypeAccount()
+        {
+            return _typeAccount;
+        }
+
+        public void InfoBankAccount()
+        {
+            Console.WriteLine($"Тип счёта: {_typeAccount}, Номер счёта: {_number}, Баланс: {_balance}");
         }
     }
 }

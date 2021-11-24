@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace lesson_2
+﻿namespace lesson_2
 {
     class Program
     {
@@ -25,11 +22,29 @@ namespace lesson_2
     }
     public class BankAccount
     {
-        int _number;
+        private int _number;
 
-        int _balance;
+        private int _balance;
 
-        TypeOfBankAccount _typeAccount;
+        private TypeOfBankAccount _typeAccount;
+
+        public int number
+        {
+            get { return _number; }
+            set { _number = value; }
+        }
+
+        public int balance
+        {
+            get { return _balance; }
+            set { _balance = value; }
+        }
+
+        public TypeOfBankAccount typeAccount
+        {
+            get { return _typeAccount; }
+            set { _typeAccount = value; }
+        }
 
         public BankAccount()
         {
@@ -82,6 +97,12 @@ namespace lesson_2
         public void InfoBankAccount()
         {
             Console.WriteLine($"Тип счёта: {_typeAccount}, Номер счёта: {_number}, Баланс: {_balance}");
+        }
+
+        public void MoneyTransfer(BankAccount bankAccount, int amount)
+        {
+            _balance -= amount;
+            this._balance += amount;
         }
     }
 }
